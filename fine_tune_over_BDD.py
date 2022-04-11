@@ -15,7 +15,7 @@ import torch.distributed as dist
 
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
-from apex import amp
+# from apex import amp
 
 from models.model_crossattn import VisionTransformer, CONFIGS
 
