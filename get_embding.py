@@ -87,10 +87,10 @@ model_grd.load_state_dict(state_dict['model_grd'])
 model_sat.load_state_dict(state_dict['model_sat'])
 
 
-from utils.dataloader_BBD import satDataloader, grdDataloader
+from utils.dataloader_BBD import testSatDataloader, testGrdDataloader
 
-satset = satDataloader(args)
-grdset = grdDataloader(args)
+satset = testSatDataloader(args)
+grdset = testGrdDataloader(args)
 
 sat_loader = DataLoader(satset,
                         batch_size=args.eval_batch_size,
@@ -136,8 +136,10 @@ with open('./sat_discripto.pkl', 'wb') as f:
     pickle.dump(sat_global_descriptor, f)
 print('--------------sat embedding is done-------------------')
 
-val_i = 0
+
+
 # start creat ground embedding
+val_i = 0
 print('---------start creating ground embedding----------------')
 with torch.no_grad():
     for step, batch in enumerate(tqdm(grd_loader)):
@@ -158,7 +160,7 @@ with torch.no_grad():
 
 
 
-with open('./groun_discripto.pkl', 'wb') as f:
+with open('./ground_discripto.pkl', 'wb') as f:
     pickle.dump(grd_global_descriptor, f)
 
 

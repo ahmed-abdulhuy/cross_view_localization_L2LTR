@@ -13,7 +13,7 @@ import pickle
 
 
 # satalite data loader
-class satDataloader(Dataset):
+class testSatDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
@@ -76,7 +76,7 @@ class satDataloader(Dataset):
 
 
 # ground data loader
-class grdDataloader(Dataset):
+class testGrdDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
