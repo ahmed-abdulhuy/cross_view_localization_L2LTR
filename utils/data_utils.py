@@ -16,6 +16,8 @@ def get_loader(args):
         from utils.dataloader_usa import TrainDataloader,TestDataloader
     elif args.dataset == 'CVACT':
         from utils.dataloader_act import TrainDataloader,TestDataloader
+    elif args.dataset == 'BBD':
+        from utils.dataloader_BBD import TrainDataloader,TestDataloader
 
     trainset = TrainDataloader(args)
     testset = TestDataloader(args)
