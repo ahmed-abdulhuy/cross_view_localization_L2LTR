@@ -24,7 +24,7 @@ from utils.data_utils import get_loader
 import math
 import itertools
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 logger = logging.getLogger(__name__)
