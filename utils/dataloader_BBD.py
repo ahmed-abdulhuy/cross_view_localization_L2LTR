@@ -67,7 +67,7 @@ class TrainDataloader(Dataset):
             idx +=1
 
 
-        print('InputData::__init__: load', self.train_list, ' data_size =', self.data_size)
+        print('InputData::__init__: load BBD dataset', ' data_size =', self.data_size)
 
     def __getitem__(self, idx):
 
@@ -144,7 +144,7 @@ class TestDataloader(Dataset):
             idx +=1
         
         self.test_data_size = len(self.id_test_list)
-        print('InputData::__init__: load', self.test_list, ' data_size =', self.test_data_size)
+        print('InputData::__init__: load BBD test Dataset', ' data_size =', self.test_data_size)
 
 
     def __getitem__(self, idx):
