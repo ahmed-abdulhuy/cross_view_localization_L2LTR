@@ -357,7 +357,7 @@ def main():
                         help="The initial learning rate for SGD.")
     parser.add_argument("--weight_decay", default=0.03, type=float,
                         help="Weight deay if we apply some.")
-    parser.add_argument("--num_steps", default=222000, type=int,
+    parser.add_argument("--num_steps", default=50000, type=int,
                         help="Total number of training epochs to perform.")
     parser.add_argument("--loss_weight", default=10, type=float,
                         help="loss_weight")
