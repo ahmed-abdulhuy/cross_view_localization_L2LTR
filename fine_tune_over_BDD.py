@@ -93,8 +93,11 @@ def setup(args):
     model_sat = VisionTransformer(config, args.img_size_sat)
 
     # load pretrained model
-    model_grd.load_from(np.load(args.pretrained_dir))
-    model_sat.load_from(np.load(args.pretrained_dir))
+    # model_grd.load_from(np.load(args.pretrained_dir))
+    # model_sat.load_from(np.load(args.pretrained_dir))
+    state_dict = torch.load(os.path.join(args.output_dir,'model_checkpoint.pth'))
+    model_grd.load_state_dict(state_dict['model_grd'])
+    model_sat.load_state_dict(state_dict['model_sat'])
 
     model_grd.to(args.device)
     model_sat.to(args.device)
@@ -331,7 +334,7 @@ def main():
                         default=0,
                         help="polar transform or not")
 
-    parser.add_argument("--pretrained_dir", type=str, default="checkpoint/ViT-B_16.npz",
+    parser.add_argument("--pretrained_dir", type=str, default="./models/EgoTR_model/CVUSA",
                         help="Where to search for pretrained ViT models.")
     parser.add_argument("--output_dir", default="./output", type=str,
                         help="The output directory where checkpoints will be written.")
