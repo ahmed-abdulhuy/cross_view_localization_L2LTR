@@ -135,8 +135,8 @@ def valid(args, model_grd, model_sat, writer, test_loader, global_step):
 
     loss_fct = triplet_loss()
 
-    sat_global_descriptor = torch.zeros([8884, 768]).to(args.device)
-    grd_global_descriptor = torch.zeros([8884, 768]).to(args.device)
+    sat_global_descriptor = torch.zeros([12494, 768]).to(args.device)
+    grd_global_descriptor = torch.zeros([12494, 768]).to(args.device)
     val_i =0
     with torch.no_grad():
         for step, (x_grd, x_sat) in enumerate(epoch_iterator):
