@@ -346,9 +346,9 @@ def main():
                         help="Ground Resolution size")
     parser.add_argument("--img_size_sat", default=(128, 512), type=int,
                         help="Sat Resolution size")
-    parser.add_argument("--train_batch_size", default=32, type=int,
+    parser.add_argument("--train_batch_size", default=8, type=int,
                         help="Total batch size for training.")
-    parser.add_argument("--eval_batch_size", default=32, type=int,
+    parser.add_argument("--eval_batch_size", default=8, type=int,
                         help="Total batch size for eval.")
     parser.add_argument("--eval_every", default=1110, type=int,
                         help="Run prediction on validation set every so many steps."
