@@ -20,10 +20,10 @@ class TrainDataloader(Dataset):
         self.img_root = args.dataset_dir
         
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.train_list = pickle.load(f)
+            self.data_list = pickle.load(f)
         
         self.train_ratio = 0.9
-        self.data_size = int(len(self.train_list.keys()) * self.train_ratio)
+        self.train_data_size = int(len(self.data_list.keys()) * self.train_ratio)
 
 
         self.transform = transforms.Compose(
@@ -58,16 +58,16 @@ class TrainDataloader(Dataset):
         #         idx += 1
         
         idx = 0
-        for sat_path in self.train_list:
-            if idx == self.data_size:
+        for sat_path in self.data_list:
+            if idx == self.train_data_size:
                 break
-            grd_path = self.train_list[sat_path][0]
+            grd_path = self.data_list[sat_path][0]
             self.id_list.append([sat_path, grd_path])
             self.id_idx_list.append(idx)
             idx +=1
 
 
-        print('InputData::__init__: load BBD dataset', ' data_size =', self.data_size)
+        print('InputData::__init__: load BBD dataset', ' train_data_size =', self.train_data_size)
 
     def __getitem__(self, idx):
 
@@ -95,11 +95,11 @@ class TestDataloader(Dataset):
         self.img_root = args.dataset_dir
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.train_list = pickle.load(f)
+            self.data_list = pickle.load(f)
 
         self.test_ratio = 0.1
-        self.test_data_size = int(len(self.id_test_list) * self.test_ratio)
-        self.train_set_size = len(self.id_test_list) - self.test_data_size
+        self.test_data_size = int(len(self.data_list) * self.test_ratio)
+        self.train_set_size = len(self.data_list) - self.test_data_size
 
 
         self.transform = transforms.Compose(
@@ -134,11 +134,11 @@ class TestDataloader(Dataset):
         #         idx += 1
 
         idx = 0
-        for sat_path in self.id_test_list:
+        for sat_path in self.data_list:
             if idx - self.train_set_size < 0:
                 continue
 
-            grd_path = self.id_test_list[sat_path][0]
+            grd_path = self.data_list[sat_path][0]
             self.id_list.append([sat_path, grd_path])
             self.id_test_idx_list.append(idx - self.train_set_size)
             idx +=1
