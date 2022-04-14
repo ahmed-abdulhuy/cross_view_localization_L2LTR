@@ -136,12 +136,11 @@ class TestDataloader(Dataset):
 
         idx = 0
         for sat_path in self.data_list:
-            if idx - self.train_set_size < 0:
-                continue
-            print('=============================we are in')
+            if (idx - self.train_set_size) < 0:
+                idx +=1; continue
 
             grd_path = self.data_list[sat_path][0]
-            self.id_list.append([sat_path, grd_path])
+            self.id_test_list.append([sat_path, grd_path])
             self.id_test_idx_list.append(idx - self.train_set_size)
             idx +=1
         
