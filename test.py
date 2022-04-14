@@ -39,7 +39,7 @@ parser = argparse.ArgumentParser()
 # Required parameters
 parser.add_argument("--name", required=True,
                     help="Name of this run. Used for monitoring.")
-parser.add_argument("--dataset", choices=["CVUSA", "CVACT"], default="CVUSA",
+parser.add_argument("--dataset", choices=["CVUSA", "CVACT", "BBD"], default="BBD",
                         help="Which downstream task.")
 parser.add_argument("--model_type", choices=["ViT-B_16", "ViT-B_32", "ViT-L_16",
                                                  "ViT-L_32", "ViT-H_14", "R50-ViT-B_16", "R50-ViT-B_32"],
@@ -79,9 +79,9 @@ model_sat = VisionTransformer(config, args.img_size_sat)
 
 
 
-print("loading model form ", os.path.join(args.output_dir,'model_grd_checkpoint.pth'))
+print("loading model form ", '../input/fine-tune-egotr-over-bbd/models/EgoTR_model/CVUSA/model_checkpoint.pth')
 
-state_dict = torch.load(os.path.join(args.output_dir,'model_checkpoint.pth'))
+state_dict = torch.load('../input/fine-tune-egotr-over-bbd/models/EgoTR_model/CVUSA/model_checkpoint.pth')
 model_grd.load_state_dict(state_dict['model_grd'])
 model_sat.load_state_dict(state_dict['model_sat'])
 
@@ -90,6 +90,8 @@ if args.dataset == 'CVUSA':
     from utils.dataloader_usa import TestDataloader
 elif args.dataset == 'CVACT':
     from utils.dataloader_act import TestDataloader
+elif args.dataset == 'BBD':
+    from utils.dataloader_BBD import TestDataloader
 
 testset = TestDataloader(args)
 test_loader = DataLoader(testset,
@@ -102,8 +104,8 @@ test_loader = DataLoader(testset,
 model_grd.to(device)
 model_sat.to(device)
 
-sat_global_descriptor = np.zeros([8884, 768])
-grd_global_descriptor = np.zeros([8884, 768])
+sat_global_descriptor = np.zeros([1249, 768])
+grd_global_descriptor = np.zeros([1249, 768])
 val_i =0
 
 model_grd.eval()
