@@ -98,10 +98,11 @@ class TestDataloader(Dataset):
             self.data_list = pickle.load(f)
 
         self.test_ratio = 0.1
-        self.test_data_size = int(len(self.data_list) * self.test_ratio)
-        self.train_set_size = len(self.data_list) - self.test_data_size
+        self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
+        self.train_set_size = len(self.data_list.keys()) - self.test_data_size
 
-
+        print('==========train_size: ', self.train_set_size, '===================')
+        
         self.transform = transforms.Compose(
             [transforms.Resize((args.img_size[0], args.img_size[1])),
             transforms.ToTensor(),
@@ -137,6 +138,7 @@ class TestDataloader(Dataset):
         for sat_path in self.data_list:
             if idx - self.train_set_size < 0:
                 continue
+            print('=============================we are in')
 
             grd_path = self.data_list[sat_path][0]
             self.id_list.append([sat_path, grd_path])
