@@ -156,45 +156,45 @@ print('top10', ':', val_accuracy[0, 10])
 print('top1%', ':', val_accuracy[0, -1])
 
 
-# print('----------start checking train part----------------------')
-# with torch.no_grad():
-#     for step, batch in enumerate(tqdm(train_loader)):
-#         x_grd, x_sat = batch
-#         if step == 1:
-#             print(x_grd.shape, x_sat.shape)
+print('----------start checking train part----------------------')
+with torch.no_grad():
+    for step, batch in enumerate(tqdm(train_loader)):
+        x_grd, x_sat = batch
+        if step == 1:
+            print(x_grd.shape, x_sat.shape)
 
-#         x_grd=x_grd.to(args.device)
-#         x_sat=x_sat.to(args.device)
+        x_grd=x_grd.to(args.device)
+        x_sat=x_sat.to(args.device)
 
-#         grd_global = model_grd(x_grd)
-#         sat_global = model_sat(x_sat)
+        grd_global = model_grd(x_grd)
+        sat_global = model_sat(x_sat)
 
-#         train_sat_global_descriptor[val_i: val_i + sat_global.shape[0], :] = sat_global.detach().cpu().numpy()
-#         train_grd_global_descriptor[val_i: val_i + grd_global.shape[0], :] = grd_global.detach().cpu().numpy()
+        train_sat_global_descriptor[val_i: val_i + sat_global.shape[0], :] = sat_global.detach().cpu().numpy()
+        train_grd_global_descriptor[val_i: val_i + grd_global.shape[0], :] = grd_global.detach().cpu().numpy()
 
-#         val_i += sat_global.shape[0]
+        val_i += sat_global.shape[0]
 
 
-# print('   compute accuracy')
-# dist_array = 2.0 - 2.0 * np.matmul(train_sat_global_descriptor, train_grd_global_descriptor.T)
+print('   compute accuracy')
+dist_array = 2.0 - 2.0 * np.matmul(train_sat_global_descriptor, train_grd_global_descriptor.T)
     
-# top1_percent = int(dist_array.shape[0] * 0.01) + 1
-# val_accuracy = np.zeros((1, top1_percent))
+top1_percent = int(dist_array.shape[0] * 0.01) + 1
+val_accuracy = np.zeros((1, top1_percent))
 
-# print('start')
+print('start')
 
-# for i in tqdm(range(top1_percent)):
-#     val_accuracy[0, i] = validate(dist_array, i)
+for i in tqdm(range(top1_percent)):
+    val_accuracy[0, i] = validate(dist_array, i)
 
-# print('top1', ':', val_accuracy[0, 1])
-# print('top5', ':', val_accuracy[0, 5])
-# print('top10', ':', val_accuracy[0, 10])
-# print('top1%', ':', val_accuracy[0, -1])
+print('top1', ':', val_accuracy[0, 1])
+print('top5', ':', val_accuracy[0, 5])
+print('top10', ':', val_accuracy[0, 10])
+print('top1%', ':', val_accuracy[0, -1])
 
 
-# ### save discriptors
-# with open('./train_discriptors.pkl', 'wb') as file:
-#     pickle.dump((train_grd_global_descriptor, train_sat_global_descriptor), file)
+### save discriptors
+with open('./train_discriptors.pkl', 'wb') as file:
+    pickle.dump((train_grd_global_descriptor, train_sat_global_descriptor), file)
 
 with open('./test_discriptors.pkl', 'wb') as file:
     pickle.dump((test_grd_global_descriptor, test_sat_global_descriptor), file)

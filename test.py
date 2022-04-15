@@ -46,7 +46,7 @@ parser.add_argument("--model_type", choices=["ViT-B_16", "ViT-B_32", "ViT-L_16",
                     default="R50-ViT-B_16",
                     help="Which variant to use.")
 parser.add_argument("--polar", type=int,choices=[1,0],
-                        default=1,
+                        default=0,
                         help="polar transform or not")
 parser.add_argument("--dataset_dir", default="output", type=str,
                     help="The dataset path.")
