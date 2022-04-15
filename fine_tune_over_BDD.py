@@ -76,7 +76,7 @@ def simple_accuracy(preds, labels):
 
 def save_model(args, model_grd, model_sat,optimizer):
 
-    model_checkpoint = os.path.join(args.output_dir, "model_checkpoint.pth")
+    model_checkpoint = os.path.join(args.dataset_, "model_checkpoint.pth")
     checkpoint = {
         'model_grd':model_grd.state_dict(),
         'model_sat':model_sat.state_dict(),
@@ -95,7 +95,7 @@ def setup(args):
     # load pretrained model
     # model_grd.load_from(np.load(args.pretrained_dir))
     # model_sat.load_from(np.load(args.pretrained_dir))
-    state_dict = torch.load('../input/fine-tune-egotr-over-bbd/models/EgoTR_model/CVUSA/model_checkpoint.pth')
+    state_dict = torch.load(os.path.join(args.dataset_dir,'model_checkpoint.pth'))
     model_grd.load_state_dict(state_dict['model_grd'])
     model_sat.load_state_dict(state_dict['model_sat'])
 
