@@ -18,7 +18,6 @@ class TrainDataloader(Dataset):
         
         self.polar = args.polar
         self.img_root = args.dataset_dir
-        print("=====================I'm in================================")
         
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
