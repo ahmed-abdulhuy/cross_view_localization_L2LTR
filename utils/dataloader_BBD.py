@@ -18,6 +18,7 @@ class TrainDataloader(Dataset):
         
         self.polar = args.polar
         self.img_root = args.dataset_dir
+        print("=====================I'm in================================")
         
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
@@ -101,7 +102,6 @@ class TestDataloader(Dataset):
         self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
         self.train_set_size = len(self.data_list.keys()) - self.test_data_size
 
-        print('==========train_size: ', self.train_set_size, '===================')
         
         self.transform = transforms.Compose(
             [transforms.Resize((args.img_size[0], args.img_size[1])),
