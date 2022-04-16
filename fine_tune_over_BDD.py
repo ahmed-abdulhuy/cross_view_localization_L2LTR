@@ -76,7 +76,7 @@ def simple_accuracy(preds, labels):
 
 def save_model(args, model_grd, model_sat,optimizer):
 
-    model_checkpoint = os.path.join(args.dataset_, "model_checkpoint.pth")
+    model_checkpoint = os.path.join(args.dataset_dir, "model_checkpoint.pth")
     checkpoint = {
         'model_grd':model_grd.state_dict(),
         'model_sat':model_sat.state_dict(),

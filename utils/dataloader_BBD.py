@@ -100,6 +100,7 @@ class TestDataloader(Dataset):
         self.test_ratio = 0.1
         self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
         self.train_set_size = len(self.data_list.keys()) - self.test_data_size
+        print(f'======================test_datasize:{self.test_data_size}========================train:{self.train_set_size}')
 
         
         self.transform = transforms.Compose(
