@@ -76,7 +76,7 @@ def simple_accuracy(preds, labels):
 
 def save_model(args, model_grd, model_sat,optimizer):
 
-    model_checkpoint = os.path.join(args.dataset_dir, "model_checkpoint.pth")
+    model_checkpoint = os.path.join(args.output_dir, "model_checkpoint.pth")
     checkpoint = {
         'model_grd':model_grd.state_dict(),
         'model_sat':model_sat.state_dict(),
@@ -135,8 +135,8 @@ def valid(args, model_grd, model_sat, writer, test_loader, global_step):
 
     loss_fct = triplet_loss()
 
-    sat_global_descriptor = torch.zeros([1895, 768]).to(args.device)
-    grd_global_descriptor = torch.zeros([1895, 768]).to(args.device)
+    sat_global_descriptor = torch.zeros([1896, 768]).to(args.device)
+    grd_global_descriptor = torch.zeros([1896, 768]).to(args.device)
     val_i =0
     with torch.no_grad():
         for step, (x_grd, x_sat) in enumerate(epoch_iterator):
