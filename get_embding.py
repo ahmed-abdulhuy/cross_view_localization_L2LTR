@@ -106,7 +106,7 @@ grd_loader = DataLoader(grdset,
 model_grd.to(device)
 model_sat.to(device)
 
-sat_global_descriptor = np.zeros([17060, 768])
+sat_global_descriptor = np.zeros([34224, 768])
 grd_global_descriptor = np.zeros([85300, 768])
 val_i =0
 
