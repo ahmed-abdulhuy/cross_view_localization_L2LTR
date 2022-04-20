@@ -17,7 +17,6 @@ class TrainDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
-        self.img_root = args.dataset_dir
         
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
@@ -40,22 +39,6 @@ class TrainDataloader(Dataset):
         self.__cur_id = 0  # for training
         self.id_list = []
         self.id_idx_list = []
-        # with open(self.train_list, 'r') as file:
-        #     idx = 0
-        #     for line in file:
-        #         data = line.split(',')
-        #         pano_id = (data[0].split('/')[-1]).split('.')[0]
-        #         # satellite filename, streetview filename, pano_id
-        #         if self.polar:
-        #             item1 = self.img_root + data[0].replace('bing', 'polar').replace('jpg', 'png')
-        #         else:
-        #             item1 = self.img_root + data[0]
-
-        #         item2 = self.img_root + data[1]
-
-        #         self.id_list.append([item1, item2, pano_id])
-        #         self.id_idx_list.append(idx)
-        #         idx += 1
         
         idx = 0
         for sat_path in self.data_list:
@@ -92,8 +75,6 @@ class TestDataloader(Dataset):
         print(args.polar)
         self.polar = args.polar
 
-        self.img_root = args.dataset_dir
-
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
 
@@ -116,23 +97,6 @@ class TestDataloader(Dataset):
         self.__cur_test_id = 0  # for training
         self.id_test_list = []
         self.id_test_idx_list = []
-        # with open(self.test_list, 'r') as file:
-        #     idx = 0
-        #     for line in file:
-        #         data = line.split(',')
-        #         pano_id = (data[0].split('/')[-1]).split('.')[0]
-        #         # satellite filename, streetview filename, pano_id
-        #         if self.polar:
-        #             item1 = self.img_root + data[0].replace('bing', 'polar').replace('jpg', 'png')
-        #         else:
-        #             item1 = self.img_root + data[0]
-                
-        #         item2 = self.img_root + data[1]
-
-        #         self.id_test_list.append([item1, item2, pano_id])
-                
-        #         self.id_test_idx_list.append(idx)
-        #         idx += 1
 
         idx = 0
         for sat_path in self.data_list:
@@ -172,7 +136,6 @@ class testSatDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
-        self.img_root = args.dataset_dir
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.train_list = pickle.load(f)
@@ -190,23 +153,6 @@ class testSatDataloader(Dataset):
         #print('InputData::__init__: load %s' % self.train_list)
         self.__cur_id = 0  # for training
         self.sat_id_list = []
-        # self.id_idx_list = []
-        # with open(self.train_list, 'r') as file:
-        #     idx = 0
-        #     for line in file:
-        #         data = line.split(',')
-        #         pano_id = (data[0].split('/')[-1]).split('.')[0]
-        #         # satellite filename, streetview filename, pano_id
-        #         if self.polar:
-        #             item1 = self.img_root + data[0].replace('bing', 'polar').replace('jpg', 'png')
-        #         else:
-        #             item1 = self.img_root + data[0]
-
-        #         item2 = self.img_root + data[1]
-
-        #         self.id_list.append([item1, item2, pano_id])
-        #         self.id_idx_list.append(idx)
-        #         idx += 1
 
         for sat_img in self.train_list:
             self.sat_id_list.append(sat_img)
@@ -252,22 +198,6 @@ class testGrdDataloader(Dataset):
         #print('InputData::__init__: load %s' % self.train_list)
         self.__cur_id = 0  # for training
         self.grd_id_list = []
-        # with open(self.train_list, 'r') as file:
-        #     idx = 0
-        #     for line in file:
-        #         data = line.split(',')
-        #         pano_id = (data[0].split('/')[-1]).split('.')[0]
-        #         # satellite filename, streetview filename, pano_id
-        #         if self.polar:
-        #             item1 = self.img_root + data[0].replace('bing', 'polar').replace('jpg', 'png')
-        #         else:
-        #             item1 = self.img_root + data[0]
-
-        #         item2 = self.img_root + data[1]
-
-        #         self.id_list.append([item1, item2, pano_id])
-        #         self.id_idx_list.append(idx)
-        #         idx += 1
 
         for grd_list in self.train_list.values():
             for grd_path in grd_list:
