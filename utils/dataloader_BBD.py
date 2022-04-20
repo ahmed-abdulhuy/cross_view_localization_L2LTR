@@ -21,6 +21,12 @@ class TrainDataloader(Dataset):
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
         
+        if self.polar:
+            self.tmp_data_list = self.data_list.copy()
+            new_dir = '/kaggle/input/aerials-polar/aerials'
+            for sat_path in self.tmp_data_list:
+                self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
+        
         self.train_ratio = 0.9
         self.train_data_size = int(len(self.data_list.keys()) * self.train_ratio)
 
@@ -77,6 +83,12 @@ class TestDataloader(Dataset):
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
+        
+        if self.polar:
+            self.tmp_data_list = self.data_list.copy()
+            new_dir = '/kaggle/input/aerials-polar/aerials'
+            for sat_path in self.tmp_data_list:
+                self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
 
         self.test_ratio = 0.1
         self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
@@ -139,6 +151,12 @@ class testSatDataloader(Dataset):
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.train_list = pickle.load(f)
+        
+        if self.polar:
+            self.tmp_data_list = self.data_list.copy()
+            new_dir = '/kaggle/input/aerials-polar/aerials'
+            for sat_path in self.tmp_data_list:
+                self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
 
         self.transform = transforms.Compose(
             [transforms.Resize((args.img_size[0], args.img_size[1])),
@@ -184,6 +202,12 @@ class testGrdDataloader(Dataset):
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
             self.train_list = pickle.load(f)
+        
+        if self.polar:
+            self.tmp_data_list = self.data_list.copy()
+            new_dir = '/kaggle/input/aerials-polar/aerials'
+            for sat_path in self.tmp_data_list:
+                self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
 
         self.transform = transforms.Compose(
             [transforms.Resize((args.img_size[0], args.img_size[1])),
