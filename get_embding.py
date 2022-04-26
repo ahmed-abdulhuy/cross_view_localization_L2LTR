@@ -52,6 +52,9 @@ parser.add_argument("--polar", type=int,choices=[1,0],
 parser.add_argument("--dataset_dir", default="output", type=str,
                     help="The dataset path.")
 
+parser.add_argument("--pretrained_dir", type=str, default="./models/EgoTR_model/CVUSA",
+                        help="Where to search for pretrained ViT models.")
+
 parser.add_argument("--output_dir", default="output", type=str,
                         help="The output directory where checkpoints will be written.")
 
@@ -80,9 +83,9 @@ model_sat = VisionTransformer(config, args.img_size_sat)
 
 
 
-print("loading model form ", os.path.join(args.output_dir,'model_grd_checkpoint.pth'))
+print("loading model form ", os.path.join(args.pretrained_dir,'model_grd_checkpoint.pth'))
 
-state_dict = torch.load(os.path.join(args.output_dir,'model_checkpoint.pth'))
+state_dict = torch.load(os.path.join(args.pretrained_dir,'model_checkpoint.pth'))
 model_grd.load_state_dict(state_dict['model_grd'])
 model_sat.load_state_dict(state_dict['model_sat'])
 
@@ -106,8 +109,8 @@ grd_loader = DataLoader(grdset,
 model_grd.to(device)
 model_sat.to(device)
 
-sat_global_descriptor = np.zeros([34224, 768])
-grd_global_descriptor = np.zeros([85300, 768])
+sat_global_descriptor = np.zeros([38026, 768])
+grd_global_descriptor = np.zeros([190130, 768])
 val_i =0
 
 model_grd.eval()
