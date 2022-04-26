@@ -144,13 +144,13 @@ class TestDataloader(Dataset):
 
 
 # satalite data loader
-class testSatDataloader(Dataset):
+class satDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.train_list = pickle.load(f)
+            self.data_list = pickle.load(f)
         
         if self.polar:
             self.tmp_data_list = self.data_list.copy()
@@ -168,16 +168,16 @@ class testSatDataloader(Dataset):
             transforms.ToTensor(),
             transforms.Normalize(mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225))] )
 
-        #print('InputData::__init__: load %s' % self.train_list)
+        print('InputData::__init__: load from %s' % new_dir)
         self.__cur_id = 0  # for training
         self.sat_id_list = []
 
-        for sat_img in self.train_list:
+        for sat_img in self.data_list:
             self.sat_id_list.append(sat_img)
             
         self.data_size = len(self.sat_id_list)
 
-        # print('InputData::__init__: load', self.train_list, ' data_size =', self.data_size)
+        print('InputData::__init__: load', new_dir, ' data_size =', self.data_size)
 
     def __getitem__(self, idx):
 
@@ -195,13 +195,13 @@ class testSatDataloader(Dataset):
 
 
 # ground data loader
-class testGrdDataloader(Dataset):
+class grdDataloader(Dataset):
     def __init__(self, args):
         
         self.polar = args.polar
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.train_list = pickle.load(f)
+            self.data_list = pickle.load(f)
         
         if self.polar:
             self.tmp_data_list = self.data_list.copy()
@@ -219,17 +219,17 @@ class testGrdDataloader(Dataset):
             transforms.ToTensor(),
             transforms.Normalize(mean = (0.485, 0.456, 0.406), std = (0.229, 0.224, 0.225))] )
 
-        #print('InputData::__init__: load %s' % self.train_list)
+        print('InputData::__init__: load from %s' % new_dir)
         self.__cur_id = 0  # for training
         self.grd_id_list = []
 
-        for grd_list in self.train_list.values():
+        for grd_list in self.data_list.values():
             for grd_path in grd_list:
                 self.grd_id_list.append(grd_path)
             
         self.data_size = len(self.grd_id_list)
 
-        # print('InputData::__init__: load', self.train_list, ' data_size =', self.data_size)
+        print('InputData::__init__: load', new_dir, ' data_size =', self.data_size)
 
     def __getitem__(self, idx):
 

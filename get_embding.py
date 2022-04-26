@@ -90,10 +90,10 @@ model_grd.load_state_dict(state_dict['model_grd'])
 model_sat.load_state_dict(state_dict['model_sat'])
 
 
-from utils.dataloader_BBD import testSatDataloader, testGrdDataloader
+from utils.dataloader_BBD import satDataloader, grdDataloader
 
-satset = testSatDataloader(args)
-grdset = testGrdDataloader(args)
+satset = satDataloader(args)
+grdset = grdDataloader(args)
 
 sat_loader = DataLoader(satset,
                         batch_size=args.eval_batch_size,
