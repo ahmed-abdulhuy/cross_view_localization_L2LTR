@@ -107,8 +107,8 @@ test_loader = DataLoader(testset,
 model_grd.to(device)
 model_sat.to(device)
 
-sat_global_descriptor = np.zeros([3802, 768])
-grd_global_descriptor = np.zeros([3802, 768])
+sat_global_descriptor = np.zeros([3803, 768])
+grd_global_descriptor = np.zeros([3803, 768])
 val_i =0
 
 model_grd.eval()
@@ -126,11 +126,9 @@ with torch.no_grad():
 
         grd_global = model_grd(x_grd)
         sat_global = model_sat(x_sat)
-        print('shape', sat_global.detach().cpu().numpy().shape)
 
         sat_global_descriptor[val_i: val_i + sat_global.shape[0], :] = sat_global.detach().cpu().numpy()
         grd_global_descriptor[val_i: val_i + grd_global.shape[0], :] = grd_global.detach().cpu().numpy()
-        print('shape', sat_global.detach().cpu().numpy().shape)
 
         val_i += sat_global.shape[0]
 
