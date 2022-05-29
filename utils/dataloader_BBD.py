@@ -18,7 +18,7 @@ class TrainDataloader(Dataset):
         
         self.polar = args.polar
         
-        with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
+        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
             self.dataset = pickle.load(f)
             self.data_list = self.dataset['train_data']
         
@@ -83,7 +83,7 @@ class TestDataloader(Dataset):
         print(args.polar)
         self.polar = args.polar
 
-        with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
+        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
             self.dataset = pickle.load(f)
             self.data_list = self.dataset['test_data']
         
@@ -156,7 +156,7 @@ class satDataloader(Dataset):
         
         self.polar = args.polar
 
-        with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
+        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
         
         if self.polar:
@@ -207,7 +207,7 @@ class grdDataloader(Dataset):
         
         self.polar = args.polar
 
-        with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
+        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
             self.data_list = pickle.load(f)
         
         if self.polar:
