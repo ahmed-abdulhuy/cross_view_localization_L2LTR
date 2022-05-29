@@ -93,8 +93,6 @@ def setup(args):
     model_sat = VisionTransformer(config, args.img_size_sat)
 
     # load pretrained model
-    # model_grd.load_from(np.load(args.pretrained_dir))
-    # model_sat.load_from(np.load(args.pretrained_dir))
     state_dict = torch.load(os.path.join(args.pretrained_dir,'model_checkpoint.pth'))
     model_grd.load_state_dict(state_dict['model_grd'])
     model_sat.load_state_dict(state_dict['model_sat'])
@@ -209,7 +207,6 @@ def train(args, model_grd, model_sat):
     train_loader, test_loader = get_loader(args)
 
     # Prepare optimizer and scheduler
-
     optimizer = torch.optim.AdamW(itertools.chain(model_grd.parameters(), model_sat.parameters()),
                                 lr=args.learning_rate,
                                 eps=1e-6,

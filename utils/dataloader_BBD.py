@@ -19,7 +19,8 @@ class TrainDataloader(Dataset):
         self.polar = args.polar
         
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.data_list = pickle.load(f)
+            self.dataset = pickle.load(f)
+            self.data_list = self.dataset['train_data']
         
         if self.polar:
             self.tmp_data_list = self.data_list.copy()
@@ -27,8 +28,9 @@ class TrainDataloader(Dataset):
             for sat_path in self.tmp_data_list:
                 self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
         
-        self.train_ratio = 0.9
-        self.train_data_size = int(len(self.data_list.keys()) * self.train_ratio)
+        # self.train_ratio = 0.9
+        # self.train_data_size = int(len(self.data_list) * self.train_ratio)
+        self.train_data_size = len(self.data_list)
 
 
         self.transform = transforms.Compose(
@@ -48,8 +50,8 @@ class TrainDataloader(Dataset):
         
         idx = 0
         for sat_path in self.data_list:
-            if idx == self.train_data_size:
-                break
+            # if idx == self.train_data_size:
+            #     break
             grd_path = self.data_list[sat_path][0]
             self.id_list.append([sat_path, grd_path])
             self.id_idx_list.append(idx)
@@ -82,7 +84,8 @@ class TestDataloader(Dataset):
         self.polar = args.polar
 
         with open('../input/bbd-preprocessed/dataset.pkl', 'rb') as f:
-            self.data_list = pickle.load(f)
+            self.dataset = pickle.load(f)
+            self.data_list = self.dataset['test_data']
         
         if self.polar:
             self.tmp_data_list = self.data_list.copy()
@@ -90,10 +93,12 @@ class TestDataloader(Dataset):
             for sat_path in self.tmp_data_list:
                 self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
 
-        self.test_ratio = 0.1
-        self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
-        self.train_set_size = len(self.data_list.keys()) - self.test_data_size
-        print(f'======================test_datasize:{self.test_data_size}========================train:{self.train_set_size}')
+        # self.test_ratio = 0.1
+        # self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
+        # self.train_set_size = len(self.data_list.keys()) - self.test_data_size
+        self.test_data_size = len(self.data_list.keys())
+        # self.train_set_size = len(self.data_list.keys())
+        print(f'======================test_datasize:{self.test_data_size}========================')
 
         
         self.transform = transforms.Compose(
@@ -112,12 +117,14 @@ class TestDataloader(Dataset):
 
         idx = 0
         for sat_path in self.data_list:
-            if (idx - self.train_set_size) < 0:
-                idx +=1; continue
+            # if (idx - self.train_set_size) < 0:
+            #     idx +=1; continue
 
             grd_path = self.data_list[sat_path][0]
             self.id_test_list.append([sat_path, grd_path])
-            self.id_test_idx_list.append(idx - self.train_set_size)
+            # self.id_test_idx_list.append(idx - self.train_set_size)
+            self.id_test_idx_list.append(idx)
+
             idx +=1
         
         self.test_data_size = len(self.id_test_list)

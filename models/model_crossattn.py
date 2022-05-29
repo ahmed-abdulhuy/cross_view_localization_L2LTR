@@ -341,6 +341,16 @@ class VisionTransformer(nn.Module):
                         unit.load_from(weights, n_block=bname, n_unit=uname)
         
 
+# class RNN(nn.Module):
+#     def __init__(self, config, img_size=(128, 512), vis=False):
+#         vision_transformer = VisionTransformer(config, img_size, vis)
+    
+#     def forward(self, input_ids):
+#         embedding_output = self.embeddings(input_ids)
+#         encoded, attn_weights = self.encoder(embedding_output)
+#         return encoded, attn_weights
+
+
 CONFIGS = {
     'ViT-B_16': configs.get_b16_config(),
     'ViT-B_32': configs.get_b32_config(),
