@@ -126,6 +126,7 @@ with torch.no_grad():
 
         grd_global = model_grd(x_grd)
         sat_global = model_sat(x_sat)
+        print('shape', sat_global.detach().cpu().numpy().shape)
 
         sat_global_descriptor[val_i: val_i + sat_global.shape[0], :] = sat_global.detach().cpu().numpy()
         grd_global_descriptor[val_i: val_i + grd_global.shape[0], :] = grd_global.detach().cpu().numpy()
