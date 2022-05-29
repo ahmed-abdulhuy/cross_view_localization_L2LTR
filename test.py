@@ -130,6 +130,7 @@ with torch.no_grad():
 
         sat_global_descriptor[val_i: val_i + sat_global.shape[0], :] = sat_global.detach().cpu().numpy()
         grd_global_descriptor[val_i: val_i + grd_global.shape[0], :] = grd_global.detach().cpu().numpy()
+        print('shape', sat_global.detach().cpu().numpy().shape)
 
         val_i += sat_global.shape[0]
 
