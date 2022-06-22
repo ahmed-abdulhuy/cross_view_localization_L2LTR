@@ -80,15 +80,16 @@ class TrainDataloader(Dataset):
 
 class TestDataloader(Dataset):
     def __init__(self, args):
-        print(args.polar)
+        print(f'is Polar = {args.polar}')
         self.polar = args.polar
 
-        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
+        with open('../input/reduced-bdd-one-per-trajictory/dataset.pkl', 'rb') as f:
             self.dataset = pickle.load(f)
             self.data_list = self.dataset['test_data']
         
         if self.polar:
             self.tmp_data_list = self.data_list.copy()
+            # ? check whither we should add / at the end of new_dir
             new_dir = '/kaggle/input/aerials-polar/aerials'
             for sat_path in self.tmp_data_list:
                 self.data_list[new_dir + sat_path.split('aerials')[-1]] = self.data_list.pop(sat_path)
@@ -96,7 +97,7 @@ class TestDataloader(Dataset):
         # self.test_ratio = 0.1
         # self.test_data_size = int(len(self.data_list.keys()) * self.test_ratio)
         # self.train_set_size = len(self.data_list.keys()) - self.test_data_size
-        self.test_data_size = len(self.data_list.keys())
+        self.test_data_size = len(self.data_list)
         # self.train_set_size = len(self.data_list.keys())
         print(f'======================test_datasize:{self.test_data_size}========================')
 
@@ -128,7 +129,7 @@ class TestDataloader(Dataset):
             idx +=1
         
         self.test_data_size = len(self.id_test_list)
-        print('InputData::__init__: load BBD test Dataset', ' data_size =', self.test_data_size)
+        # print('InputData::__init__: load BBD test Dataset', ' data_size =', self.test_data_size)
 
 
     def __getitem__(self, idx):
