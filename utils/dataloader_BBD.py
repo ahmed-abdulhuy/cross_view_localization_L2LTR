@@ -18,7 +18,7 @@ class TrainDataloader(Dataset):
         
         self.polar = args.polar
         
-        with open('../input/bbd-train-and-val/dataset.pkl', 'rb') as f:
+        with open('../input/reduced-bdd-one-per-trajictory/dataset.pkl', 'rb') as f:
             self.dataset = pickle.load(f)
             self.data_list = self.dataset['train_data']
         
