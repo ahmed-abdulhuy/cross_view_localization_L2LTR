@@ -100,7 +100,7 @@ class TestDataloader(Dataset):
         # self.train_set_size = len(self.data_list.keys()) - self.test_data_size
         self.test_data_size = len(self.data_list)
         # self.train_set_size = len(self.data_list.keys())
-        print(f'======================test_datasize:{self.test_data_size}========================')
+        print(f'======================Entered examples test_datasize:{self.test_data_size}========================')
 
         
         self.transform = transforms.Compose(
@@ -127,6 +127,10 @@ class TestDataloader(Dataset):
                 # self.id_test_idx_list.append(idx - self.train_set_size)
                 self.id_test_idx_list.append(idx)
                 idx +=1
+
+        
+        print(f'======================Test_datasize after processing:{len(self.id_test_idx_list)}========================')
+
         
         self.test_data_size = len(self.id_test_list)
         # print('InputData::__init__: load BBD test Dataset', ' data_size =', self.test_data_size)
