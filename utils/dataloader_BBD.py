@@ -52,10 +52,11 @@ class TrainDataloader(Dataset):
         for sat_path in self.data_list:
             # if idx == self.train_data_size:
             #     break
-            grd_path = self.data_list[sat_path][2]
-            self.id_list.append([sat_path, grd_path])
-            self.id_idx_list.append(idx)
-            idx +=1
+            for grd_path in self.data_list[sat_path]:
+                # grd_path = self.data_list[sat_path][2]
+                self.id_list.append([sat_path, grd_path])
+                self.id_idx_list.append(idx)
+                idx +=1
 
 
         print('InputData::__init__: load BBD dataset', ' train_data_size =', self.train_data_size)
@@ -120,13 +121,12 @@ class TestDataloader(Dataset):
         for sat_path in self.data_list:
             # if (idx - self.train_set_size) < 0:
             #     idx +=1; continue
-
-            grd_path = self.data_list[sat_path][2]
-            self.id_test_list.append([sat_path, grd_path])
-            # self.id_test_idx_list.append(idx - self.train_set_size)
-            self.id_test_idx_list.append(idx)
-
-            idx +=1
+            for grd_path in self.data_list[sat_path]:
+                # grd_path = self.data_list[sat_path][2]
+                self.id_test_list.append([sat_path, grd_path])
+                # self.id_test_idx_list.append(idx - self.train_set_size)
+                self.id_test_idx_list.append(idx)
+                idx +=1
         
         self.test_data_size = len(self.id_test_list)
         # print('InputData::__init__: load BBD test Dataset', ' data_size =', self.test_data_size)
