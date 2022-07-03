@@ -11,6 +11,7 @@ from tqdm import tqdm
 # from apex import amp
 import scipy.io as scio
 import torch.nn.functional as F
+import pickle
 import argparse
 
 from models.model_crossattn import VisionTransformer, CONFIGS
@@ -27,39 +28,7 @@ def validate(dist_array, top_k):
     for i in range(dist_array.shape[0]):
         gt_dist = dist_array[i,i]
         prediction = np.array(np.where(dist_array[:, i] < gt_dist))
-        # i_traject = i - i%5        
-        
-        # print(f'\n=================first index: {max(0, i-15)}=======================')
-        # # print()
-
-        # print(f'\n=================last index: {min(i+15, dist_array.shape[0])}=======================')
-        # # print()
-
-        # print(f'\n=================dist_array.shape: {min(i+15, dist_array.shape[0])}=======================')
-        # # print()
-
-        # print(f'\n=================i_trajectory: {i_traject}=======================')
-        # # print()
-
-        # print(f'\n=================prediction shape: {prediction.shape}=======================')
-        # print(f'\n=================prediction type: {type(prediction)}=======================')
-        # # print()
-
-        # print(f'\n=================prediction: {prediction}=======================')
-        # # print()
-
-        # print(f'\n=================range: {range(max(0, i-15), min(i+15, dist_array.shape[0]))}=======================')
-        # print(f'\n=================in prediction: {np.any(1 in np.array(prediction))}=======================')
-
         isInTraject = sum([np.any(j in prediction) for j in range(max(0, i-15), min(i+15, dist_array.shape[0]))])
-        # print(f'\n=================is in trajectory: {isInTraject}=======================')
-        # # print()
-
-        # print(f'\n=================check top{top_k}: {len(prediction) < top_k}=======================')
-        # # print(f'\n===========check: ')
-        # # print('='*40)
-        # print('='*40)
-
 
         if prediction.shape[1]/5 < top_k:
             # print(f'top{top_k}: {float(top_k==1 or isInTraject>0)}')
@@ -172,7 +141,10 @@ with torch.no_grad():
 
 print('   compute accuracy')
 dist_array = 2.0 - 2.0 * np.matmul(sat_global_descriptor, grd_global_descriptor.T)
-    
+
+with open('EgoTR_BDD_dist_array.pkl', 'wb') as pickle_file:
+    pickle.dump(dist_array, pickle_file) 
+
 top1_percent = int(dist_array.shape[0] * 0.01) + 1
 val_accuracy = np.zeros((1, top1_percent))
 
